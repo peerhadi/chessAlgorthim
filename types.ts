@@ -4,6 +4,7 @@ export type Board = Array<ChessRows>
 
 export type Piece = {
     name: PieceName;
+    color: Color;
     address: Address;
     validMoves: Array<Address>;
 };

@@ -13,10 +13,8 @@ export function setAddresses(
         name: `${alphabets[index1]}${index2 + 1}`,
     };
 }
-export function findCellByAddress(address: Address) {
-    return game.board.forEach((row: ChessRows) => {
-        return row.find((cell: Cell) => cell.address.name === address.name);
-    });
+export function findCellByAddress(address: Address): any {
+    return game.board.flat().find((cell: Cell) => cell.address.name == address.name);
 }
 
 

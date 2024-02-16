@@ -54,6 +54,7 @@ export class BoardManager {
         board[i].forEach((cell: Cell, j: number) => {
             if (pattern) {
                 cell.piece = {
+                    color: color,
                     name: pattern[j],
                     address: {
                         row: 0,
@@ -64,6 +65,7 @@ export class BoardManager {
                 };
             } else {
                 cell.piece = {
+                    color: color,
                     name: piece ? piece : undefined,
                     address: {
                         row: 0,

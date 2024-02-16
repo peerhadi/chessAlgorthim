@@ -1,5 +1,6 @@
 import { BoardBuilder } from './classes/board';
 import { Player } from './classes/player';
+import { getQueenMoves } from './moves/queen';
 import { Address, Board, Cell, ChessRows, Color, Piece } from './types';
 
 class Game {
@@ -43,4 +44,5 @@ class Game {
 }
 
 export const game = new Game();
-console.log(game.board[0]);
+console.log(getQueenMoves(game.board[4][4].address, "black"))
+
