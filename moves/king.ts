@@ -1,13 +1,9 @@
-import { findCellByAddress } from "../addressManager";
-import { Address, Color } from "../types";
+import { Address, Board, Color } from "../types";
+import { getBishopMoves } from "./bishop";
+import { getRookMoves } from "./rook";
 
-export function getKingMoves(address: Address, color: Color) {
-        const board = game.board;
-    const forwardRow =
-        board[color === 'white' ? address.row - 1 : address.row + 1];
-    const currentCell: Cell = findCellByAddress(address);
-    const piece = currentCell.piece;
-    const moves: Array<Cell> = [];
-
-    return []
+export function getKingMoves(address: Address, color: Color, board: Board) {
+    return getRookMoves(address, color, board, true).concat(
+        getBishopMoves(address, color, board, true)
+    );
 }

@@ -1,25 +1,45 @@
-export type Color = 'white' | 'black';
-export type PieceName = 'Knight' | 'Bishop' | 'Pawn' | 'King' | 'Queen' | 'Rook' | undefined;
-export type Board = Array<ChessRows>
+export type Color = "white" | "black";
+export type Rank = "Knight" | "Bishop" | "Pawn" | "King" | "Queen" | "Rook";
+
+export type Address = { 
+    row: number;
+    column: number;
+}
 
 export type Piece = {
-    name: PieceName;
+    rank: Rank;
     color: Color;
-    address: Address;
-    validMoves: Array<Address>;
 };
 
-export type Address = {
-    row: number,
-    column: number,
-    name: string,
-};
+const Ranks = [
+    "Rook",
+    "Knight",
+    "Bishop",
+    "King",
+    "Queen",
+    "Bishop",
+    "Knight",
+    "Rook",
+] as Rank[];
 
-export type Cell = {
-    piece: Piece | null;
-    baseColor: Color;
-    address: Address;
-};
+export type Cell = null | Piece;
+export type Board = Cell[][];
 
-export type ChessRows = Array<Cell>;
+class BoardClass {
+    board: Array<Array<Cell>>;
+    constructor() {
+        this.board = [
+            Ranks.map((rank) => ({ rank, color: "black" })),
+            Array.from({ length: 8 }, () => ({ rank: "Pawn", color: "black" })),
+            ...Array.from({ length: 4 }, () =>
+                Array.from({ length: 8 }, () => null)
+            ),
+            Array.from({ length: 8 }, () => ({ rank: "Pawn", color: "white" })),
+            Ranks.map((rank) => ({ rank, color: "white" })),
+        ];
+    }
 
+    getPiece(row: number, col: number): { rank: Rank; color: Color } | null {
+        return this.board[row][col];
+    }
+}

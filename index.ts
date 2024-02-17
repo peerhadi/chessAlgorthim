@@ -1,7 +1,7 @@
-import { BoardBuilder } from './classes/board';
+/*import { BoardBuilder } from './classes/board';
 import { Player } from './classes/player';
 import { getQueenMoves } from './moves/queen';
-import { Address, Board, Cell, ChessRows, Color, Piece } from './types';
+import { Address, Board, Cell, Row, Color, Piece } from './types';
 
 class Game {
     board: Board;
@@ -44,5 +44,15 @@ class Game {
 }
 
 export const game = new Game();
-console.log(getQueenMoves(game.board[4][4].address, "black"))
+console.log(getQueenMoves(game.board[4][4].address, "black"))*/
 
+import { makeBoard } from "./classes/board/manager";
+import { nextMoves } from "./classes/pieces";
+
+console.log(
+    nextMoves(
+        { row: 1, column: 0 },
+        { rank: "Rook", color: "white" },
+        makeBoard()
+    )
+);
