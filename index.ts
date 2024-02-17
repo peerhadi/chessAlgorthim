@@ -1,58 +1,41 @@
-/*import { BoardBuilder } from './classes/board';
+import { makeBoard } from './classes/board/manager';
 import { Player } from './classes/player';
-import { getQueenMoves } from './moves/queen';
-import { Address, Board, Cell, Row, Color, Piece } from './types';
-
+import { Address, Board, Color, Piece, Cell } from './types';
+import {nextMoves} from "./classes/pieces";
 class Game {
     board: Board;
     turn: Color;
     players: Array<Player>;
-    boardBuilder: BoardBuilder;
     constructor() {
         this.turn = 'white';
-        this.boardBuilder = new BoardBuilder();
-        this.board = this.boardBuilder.init();
+        this.board = makeBoard();
         this.players = [new Player('white'), new Player('black')];
     }
-
-    move(startingPoint: Address, player: Player, destination: Address) {
-        if (player.color != this.turn) return;
-
-        if (this.isValidMove(startingPoint, destination)) {
-            this.swap(this.getPiece(startingPoint), this.getPiece(destination));
+    
+    move(address: Address, piece: Piece, destination: Address){
+        if(nextMoves(address, piece, this.board).find((address: Address) => address.row === destination.row && address.column === destination.column)){
+        this.board[destination.row][destination.column] = this.board[address.row][address.column];
+        this.board[address.row][address.column] = null
+        }else {
+            throw new TypeError("Its not possible for the piece to go there.");
         }
+        console.log("Hello");
+        return null;
     }
 
-    isValidMove(start: Address, end: Address) {
-        const piece1 = this.getPiece(start);
-
-        if (!piece1.validMoves.includes(end)) return false;
-        return true;
-    }
-
-    getPiece(location: Address): Piece {
-        const result: any = this.board.forEach((row) => {
-            return row.find((cell) => cell.address.name === location.name);
-        });
-
-        return result;
-    }
-
-    swap(piece1: Piece, piece2: Piece) {
-        [piece1, piece2] = [piece2, piece1];
-    }
 }
 
 export const game = new Game();
-console.log(getQueenMoves(game.board[4][4].address, "black"))*/
+game.move({
+    row: 1,
+    column: 3
+},
+{
+        rank: "Pawn",
+        color: "black" 
+    }, {
 
-import { makeBoard } from "./classes/board/manager";
-import { nextMoves } from "./classes/pieces";
-
-console.log(
-    nextMoves(
-        { row: 1, column: 0 },
-        { rank: "Rook", color: "white" },
-        makeBoard()
-    )
-);
+    row: 3,
+    column: 3
+    })
+console.log(game.board)
